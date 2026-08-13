@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NCERC — Nehru College of Engineering and Research Centre (Autonomous)</title>
+  <meta name="description" content="Official Portal of Nehru College of Engineering and Research Centre (NCERC), Pampady, Thrissur. UGC Autonomous, NAAC Re-Accredited with 'A' Grade, NBA Accredited, KTU Affiliated.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <!-- TOP UTILITY BAR -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-contact">
+        <span>📍 Nila Gardens, Pampady, Thiruvilwamala, Thrissur - 680 588, Kerala</span>
+        <span>📞 Hotlines: +91 9656000005, +91 9605771555 | Office: 04884 284000</span>
+      </div>
+      <div class="top-bar-links">
+        <a href="#student-portal" onclick="alert('NCERC Student Portal login link will be connected via backend authentication.')">Student Portal</a>
+        <a href="#faculty-portal" onclick="alert('NCERC Faculty Portal link will be connected via SQL backend.')">Faculty Portal</a>
+        <a href="#calendar">Academic Calendar</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN NAVIGATION -->
+  <header class="header-main">
+    <div class="container header-inner">
+      <a href="#" class="brand-wrapper">
+        <img src="{{ url_for('static', filename='images/ncerc_logo.svg') }}" alt="Official NCERC Emblem Logo" class="brand-logo-img">
+        <div class="brand-text">
+          <span class="brand-name">NEHRU COLLEGE OF ENGINEERING</span>
+          <span class="brand-subtitle">
+            & RESEARCH CENTRE 
+            <span class="autonomous-tag">AUTONOMOUS</span>
+          </span>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
+          <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+          <li class="nav-item"><a href="#academics" class="nav-link">Academics</a></li>
+          <li class="nav-item"><a href="#departments" class="nav-link">Departments</a></li>
+          <li class="nav-item"><a href="#facilities" class="nav-link">Campus Life</a></li>
+          <li class="nav-item"><a href="#placements" class="nav-link">Placements</a></li>
+          <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <button class="btn btn-primary btn-sm" onclick="openAdmissionsModal()">Admissions 2026-27</button>
+      </nav>
+
+      <button class="mobile-toggle" aria-label="Toggle Navigation" onclick="toggleMobileMenu()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ANNOUNCEMENT TICKER -->
+  <div class="ticker-bar">
+    <div class="ticker-label">Announcements</div>
+    <div class="ticker-content">
+      <a href="#admissions">🎓 B.Tech, M.Tech, MCA & MBA Admissions Open for 2026-2027 Academic Year — Apply Now!</a> &nbsp;|&nbsp; 
+      <a href="#about">🔬 APJ Abdul Kalam Technological University Officially Approves NCERC as Place of Research</a> &nbsp;|&nbsp; 
+      <a href="#placements">💼 Campus Placement Drive Information Available in Career Section</a>
+    </div>
+  </div>
+
+  <!-- HERO SECTION (REAL NCERC CAMPUS PHOTOGRAPH FOCUS) -->
+  <section id="home" class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge-row">
+          <span class="badge badge-burgundy">UGC AUTONOMOUS</span>
+          <span class="badge badge-gold">NAAC 'A' GRADE & NBA ACCREDITED</span>
+        </div>
+        <h1 class="hero-title">Empowering Innovation Through Engineering</h1>
+        <p class="hero-description">
+          Building knowledge, technical skills, and opportunities for the engineers of tomorrow. NCERC provides autonomous curriculum, research laboratories, and industry integration under Nehru Group of Institutions.
+        </p>
+        <div class="hero-actions">
+          <a href="#about" class="btn btn-gold">Explore NCERC</a>
+          <button class="btn btn-outline-white" onclick="openAdmissionsModal()">Admissions 2026-27</button>
+        </div>
+      </div>
+
+      <div class="hero-card-summary">
+        <h3>NCERC Statutory Overview</h3>
+        <div class="quick-fact-list">
+          <div class="quick-fact-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8B0000" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            <div><strong>Affiliation:</strong> APJ Abdul Kalam Technological University (KTU)</div>
+          </div>
+          <div class="quick-fact-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8B0000" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <div><strong>Status:</strong> UGC Autonomous Institution & Recognized Place of Research</div>
+          </div>
+          <div class="quick-fact-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8B0000" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <div><strong>Location:</strong> Nila Gardens, Pampady, Thiruvilwamala, Thrissur, Kerala</div>
+          </div>
+          <div class="quick-fact-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8B0000" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <div><strong>Approvals:</strong> AICTE Approved, ISO 9001:2015 Certified</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCREDITATION STRIP -->
+  <div class="accreditation-strip">
+    <div class="container accreditation-grid">
+      <div class="accred-item">
+        <div class="accred-icon">UGC</div>
+        <div class="accred-text">
+          <span class="accred-title">UGC Autonomous</span>
+          <span class="accred-sub">Under Sec 2(f)</span>
+        </div>
+      </div>
+      <div class="accred-item">
+        <div class="accred-icon">NAAC</div>
+        <div class="accred-text">
+          <span class="accred-title">NAAC 'A' Grade</span>
+          <span class="accred-sub">Re-Accredited</span>
+        </div>
+      </div>
+      <div class="accred-item">
+        <div class="accred-icon">NBA</div>
+        <div class="accred-text">
+          <span class="accred-title">NBA Accredited</span>
+          <span class="accred-sub">CSE, ECE, MCA & Mechatronics</span>
+        </div>
+      </div>
+      <div class="accred-item">
+        <div class="accred-icon">KTU</div>
+        <div class="accred-text">
+          <span class="accred-title">KTU Affiliated</span>
+          <span class="accred-sub">Place of Research</span>
+        </div>
+      </div>
+      <div class="accred-item">
+        <div class="accred-icon">ISO</div>
+        <div class="accred-text">
+          <span class="accred-title">ISO 9001:2015</span>
+          <span class="accred-sub">Certified Institution</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT NCERC -->
+  <section id="about" class="section-padding">
+    <div class="container about-grid">
+      <div class="about-content">
+        <span class="section-subtitle">Institutional Overview</span>
+        <h2 class="section-title">Nehru College of Engineering and Research Centre</h2>
+        <p>
+          Nehru College of Engineering and Research Centre (NCERC) is a UGC Autonomous engineering college sponsored by the Nehru Group of Institutions. Situated in Nila Gardens, Pampady, Thiruvilwamala, Thrissur, Kerala, NCERC is committed to providing quality technical education and research development.
+        </p>
+        <p>
+          Affiliated with APJ Abdul Kalam Technological University (KTU) and approved by AICTE, NCERC offers undergraduate, postgraduate, and doctoral research programmes with an emphasis on academic rigour and laboratory practice.
+        </p>
+
+        <div class="about-features">
+          <div class="feature-box">
+            <h4>Autonomous Curriculum</h4>
+            <p>Flexible academic structure aligned with engineering standards.</p>
+          </div>
+          <div class="feature-box">
+            <h4>Place of Research</h4>
+            <p>KTU approved research centers for higher technical studies.</p>
+          </div>
+          <div class="feature-box">
+            <h4>Promoted by PK DAS</h4>
+            <p>Promoted by PK Das Trust & Nehru Group of Institutions.</p>
+          </div>
+          <div class="feature-box">
+            <h4>Campus Identity</h4>
+            <p>Situated in Nila Gardens, Pampady, Thrissur, Kerala.</p>
+          </div>
+        </div>
+
+        <button class="btn btn-secondary" onclick="scrollToSection('academics')">View Academic Programs</button>
+      </div>
+
+      <div class="about-image-wrapper">
+        <img src="{{ url_for('static', filename='images/campus_hero.jpg') }}" alt="NCERC Campus Main Academic Block">
+        <div class="about-stat-overlay">
+          <div class="stat-num">NCERC</div>
+          <div class="stat-lbl">Pampady, Thrissur</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACADEMICS SECTION -->
+  <section id="academics" class="section-padding academics-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Academic Programs</span>
+        <h2 class="section-title">Undergraduate & Postgraduate Disciplines</h2>
+        <p class="section-desc">
+          Official degree programmes offered at NCERC under UGC Autonomous & APJ Abdul Kalam Technological University affiliation.
+        </p>
+      </div>
+
+      <div class="program-tabs">
+        <button class="tab-btn active" onclick="filterPrograms('all', this)">All Programs</button>
+        <button class="tab-btn" onclick="filterPrograms('btech', this)">B.Tech (UG)</button>
+        <button class="tab-btn" onclick="filterPrograms('mtech', this)">M.Tech (PG)</button>
+        <button class="tab-btn" onclick="filterPrograms('mgmt', this)">MCA & MBA</button>
+      </div>
+
+      <div class="programs-grid" id="programsGrid">
+        <!-- B.Tech Mechatronics -->
+        <div class="program-card" data-category="btech">
+          <div class="program-card-header">
+            <span class="badge badge-burgundy">NBA ACCREDITED</span>
+            <span class="badge badge-navy">B.TECH</span>
+          </div>
+          <h3>Mechatronics Engineering</h3>
+          <div class="program-meta">
+            <span>Level: Undergraduate</span>
+            <span>Duration: 4 Years</span>
+          </div>
+          <p class="program-desc">
+            Interdisciplinary integration of mechanical engineering, electronics, computer control, and industrial robotics.
+          </p>
+          <div class="program-card-footer">
+            <button class="btn btn-outline btn-sm" onclick="showDeptDetails('mct')">Course Details</button>
+            <button class="btn btn-primary btn-sm" onclick="openAdmissionsModal('Mechatronics Engineering')">Admissions</button>
+          </div>
+        </div>
+
+        <!-- B.Tech CSE -->
+        <div class="program-card" data-category="btech">
+          <div class="program-card-header">
+            <span class="badge badge-burgundy">NBA ACCREDITED</span>
+            <span class="badge badge-navy">B.TECH</span>
+          </div>
+          <h3>Computer Science & Engineering</h3>
+          <div class="program-meta">
+            <span>Level: Undergraduate</span>
+            <span>Duration: 4 Years</span>
+          </div>
+          <p class="program-desc">
+            Focuses on software engineering, algorithms, computing architecture, database systems, and network security.
+          </p>
+          <div class="program-card-footer">
+            <button class="btn btn-outline btn-sm" onclick="showDeptDetails('cse')">Course Details</button>
+            <button class="btn btn-primary btn-sm" onclick="openAdmissionsModal('Computer Science & Engineering')">Admissions</button>
+          </div>
+        </div>
+
+        <!-- B.Tech CSE (AI & ML) -->
+        <div class="program-card" data-category="btech">
+          <div class="program-card-header">
+            <span class="badge badge-navy">APPROVED DISCIPLINE</span>
+            <span class="badge badge-navy">B.TECH</span>
+          </div>
+          <h3>Computer Science & Engineering (AI & ML)</h3>
+          <div class="program-meta">
+            <span>Level: Undergraduate</span>
+            <span>Duration: 4 Years</span>
+          </div>
+          <p class="program-desc">
+            Specialized curriculum in artificial intelligence algorithms, machine learning models, and data science applications.
+          </p>
+          <div class="program-card-footer">
+            <button class="btn btn-outline btn-sm" onclick="showDeptDetails('aiml')">Course Details</button>
+            <button class="btn btn-primary btn-sm" onclick="openAdmissionsModal('CSE (Artificial Intelligence & Machine Learning)')">Admissions</button>
+          </div>
+        </div>
+
+        <!-- B.Tech ECE -->
+        <div class="program-card" data-category="btech">
+          <div class="program-card-header">
+            <span class="badge badge-burgundy">NBA ACCREDITED</span>
+            <span class="badge badge-navy">B.TECH</span>
+          </div>
+          <h3>Electronics & Communication Engineering</h3>
+          <div class="program-meta">
+            <span>Level: Undergraduate</span>
+            <span>Duration: 4 Years</span>
+          </div>
+          <p class="program-desc">
+            Covers electronic circuits, VLSI design, signal processing, embedded systems, and telecommunication systems.
+          </p>
+          <div class="program-card-footer">
+            <button class="btn btn-outline btn-sm" onclick="showDeptDetails('ece')">Course Details</button>
+            <button class="btn btn-primary btn-sm" onclick="openAdmissionsModal('Electronics & Communication')">Admissions</button>
+          </div>
+        </div>
+
+        <!-- B.Tech EEE -->
+        <div class="program-card" data-category="btech">
+          <div class="program-card-header">
+            <span class="badge badge-outline">KTU AFFILIATED</span>
+            <span class="badge badge-navy">B.TECH</span>
+          </div>
+          <h3>Electrical & Electronics Engineering</h3>
+          <div class="program-meta">
+            <span>Level: Undergraduate</span>
+            <span>Duration: 4 Years</span>
+          </div>
+          <p class="program-desc">
+            Core study in electrical power systems, power electronics, control machinery, and renewable energy technology.
+          </p>
+          <div class="program-card-footer">
+            <button class="btn btn-outline btn-sm" onclick="showDeptDetails('eee')">Course Details</button>
+            <button class="btn btn-primary btn-sm" onclick="openAdmissionsModal('Electrical & Electronics')">Admissions</button>
+          </div>
+        </div>
+
+        <!-- B.Tech Mechanical -->
+        <div class="program-card" data-category="btech">
+          <div class="program-card-header">
+            <span class="badge badge-outline">KTU AFFILIATED</span>
+            <span class="badge badge-navy">B.TECH</span>
+          </div>
+          <h3>Mechanical Engineering</h3>
+          <div class="program-meta">
+            <span>Level: Undergraduate</span>
+            <span>Duration: 4 Years</span>
+          </div>
+          <p class="program-desc">
+            Domain training in thermal sciences, manufacturing processes, machine design, CAD, and material mechanics.
+          </p>
+          <div class="program-card-footer">
+            <button class="btn btn-outline btn-sm" onclick="showDeptDetails('me')">Course Details</button>
+            <button class="btn btn-primary btn-sm" onclick="openAdmissionsModal('Mechanical Engineering')">Admissions</button>
+          </div>
+        </div>
+
+        <!-- M.Tech Programs -->
+        <div class="program-card" data-category="mtech">
+          <div class="program-card-header">
+            <span class="badge badge-navy">POSTGRADUATE</span>
+            <span class="badge badge-navy">M.TECH</span>
+          </div>
+          <h3>M.Tech Programmes</h3>
+          <div class="program-meta">
+            <span>Level: Master of Technology</span>
+            <span>Duration: 2 Years</span>
+          </div>
+          <p class="program-desc">
+            Specializations in Computer Science & Engineering, Cyber Security, Energy Systems, and VLSI Design.
+          </p>
+          <div class="program-card-footer">
+            <button class="btn btn-outline btn-sm" onclick="showDeptDetails('mtech')">Course Details</button>
+            <button class="btn btn-primary btn-sm" onclick="openAdmissionsModal('M.Tech Programs')">Admissions</button>
+          </div>
+        </div>
+
+        <!-- MCA -->
+        <div class="program-card" data-category="mgmt">
+          <div class="program-card-header">
+            <span class="badge badge-burgundy">NBA ACCREDITED</span>
+            <span class="badge badge-navy">MCA</span>
+          </div>
+          <h3>Master of Computer Applications</h3>
+          <div class="program-meta">
+            <span>Level: Postgraduate</span>
+            <span>Duration: 2 Years</span>
+          </div>
+          <p class="program-desc">
+            Advanced software engineering, application architecture, cloud systems, and database administration.
+          </p>
+          <div class="program-card-footer">
+            <button class="btn btn-outline btn-sm" onclick="showDeptDetails('mca')">Course Details</button>
+            <button class="btn btn-primary btn-sm" onclick="openAdmissionsModal('Master of Computer Applications')">Admissions</button>
+          </div>
+        </div>
+
+        <!-- MBA -->
+        <div class="program-card" data-category="mgmt">
+          <div class="program-card-header">
+            <span class="badge badge-navy">POSTGRADUATE</span>
+            <span class="badge badge-navy">MBA</span>
+          </div>
+          <h3>Master of Business Administration</h3>
+          <div class="program-meta">
+            <span>Level: Management</span>
+            <span>Duration: 2 Years</span>
+          </div>
+          <p class="program-desc">
+            Specializations in Finance, Systems, Human Resource, Marketing, and Operations Management.
+          </p>
+          <div class="program-card-footer">
+            <button class="btn btn-outline btn-sm" onclick="showDeptDetails('mba')">Course Details</button>
+            <button class="btn btn-primary btn-sm" onclick="openAdmissionsModal('MBA Master of Business Administration')">Admissions</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAMPUS & FACILITIES -->
+  <section id="facilities" class="section-padding">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Campus Infrastructure</span>
+        <h2 class="section-title">Facilities & Learning Spaces</h2>
+        <p class="section-desc">
+          Representative facility overview for student learning, research, and campus residential life.
+          <span class="facility-badge-note">(Secondary facility photos are UI representation previews)</span>
+        </p>
+      </div>
+
+      <div class="facilities-grid">
+        <div class="facility-card">
+          <div class="facility-img-box">
+            <img src="{{ url_for('static', filename='images/library.jpg') }}" alt="Central Library Representation">
+          </div>
+          <div class="facility-body">
+            <h3>Central Library</h3>
+            <p>
+              Located on the second floor of the main academic block. Houses technical volumes, IEEE e-journals, reference sections, and quiet study areas.
+            </p>
+          </div>
+        </div>
+
+        <div class="facility-card">
+          <div class="facility-img-box">
+            <img src="{{ url_for('static', filename='images/lab.jpg') }}" alt="Engineering Laboratories Representation">
+          </div>
+          <div class="facility-body">
+            <h3>Engineering Laboratories</h3>
+            <p>
+              Departmental laboratories for Computer Science, Electronics, Robotics, Mechatronics automation, and CAD workshop.
+            </p>
+          </div>
+        </div>
+
+        <div class="facility-card">
+          <div class="facility-img-box">
+            <img src="{{ url_for('static', filename='images/campus_hero.jpg') }}" alt="Campus Residential Hostels">
+          </div>
+          <div class="facility-body">
+            <h3>Hostels & Transportation</h3>
+            <p>
+              Residential hostels for male and female students within the Pampady campus along with fleet bus transportation across Thrissur and Palakkad districts.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLACEMENTS SECTION -->
+  <section id="placements" class="placement-section">
+    <div class="container">
+      <div class="placement-grid">
+        <div class="placement-info">
+          <span class="section-subtitle" style="color: var(--ncerc-gold);">Career Development</span>
+          <h2 class="section-title">Training & Placement Cell</h2>
+          <p class="section-desc">
+            NCERC maintains a dedicated placement cell providing aptitude training, technical skill workshops, and interview preparation for graduating students.
+          </p>
+
+          <div class="stats-counter-grid" style="margin-top: 32px;">
+            <div class="stat-card">
+              <div class="number">Placement Cell</div>
+              <div class="label">[Data verified via SQL DB]</div>
+            </div>
+            <div class="stat-card">
+              <div class="number">Training Hub</div>
+              <div class="label">[Soft Skills & Aptitude]</div>
+            </div>
+            <div class="stat-card">
+              <div class="number">Recruitment</div>
+              <div class="label">[Annual Drives]</div>
+            </div>
+            <div class="stat-card">
+              <div class="number">Career Guidance</div>
+              <div class="label">[Higher Studies Support]</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="recruiter-logos-box">
+          <h4>Recruitment Partners & Training</h4>
+          <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 16px;">
+            Corporate partners and visiting recruiters in placement drives:
+          </p>
+          <div class="recruiter-grid">
+            <div class="recruiter-chip">TCS</div>
+            <div class="recruiter-chip">Infosys</div>
+            <div class="recruiter-chip">Wipro</div>
+            <div class="recruiter-chip">Cognizant</div>
+            <div class="recruiter-chip">Accenture</div>
+            <div class="recruiter-chip">IBM</div>
+          </div>
+          <div style="margin-top: 20px;">
+            <img src="{{ url_for('static', filename='images/placements.jpg') }}" alt="Placement Drive Representation" style="border-radius: 4px; border: 1px solid #E5E7EB; max-height: 160px; width: 100%; object-fit: cover;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHOLARSHIPS & STUDENT OPPORTUNITIES -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Student Support</span>
+        <h2 class="section-title">Scholarships & Co-Curricular Activities</h2>
+        <p class="section-desc">
+          Opportunities for financial support, technical chapters, and student leadership development.
+        </p>
+      </div>
+
+      <div class="scholarship-grid">
+        <div class="scholarship-card">
+          <h3>Scholarship Schemes</h3>
+          <ul class="scholarship-list">
+            <li>Nehru Merit Scholarships for Academic Achievements</li>
+            <li>Government KEAM Quota Fee Concessions & E-Grants</li>
+            <li>Category Fee Concessions & Trust Aid</li>
+            <li>[Detailed eligibility criteria supplied via SQL knowledge base]</li>
+          </ul>
+        </div>
+
+        <div class="scholarship-card">
+          <h3>Student Clubs & Technical Chapters</h3>
+          <ul class="scholarship-list">
+            <li>IEEE Student Branch & Technical Chapters</li>
+            <li>ISTE Campus Chapter & Engineering Forums</li>
+            <li>National Service Scheme (NSS) Technical Cell</li>
+            <li>BLOOM Technical & Cultural Festival</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FACULTY / DEPARTMENTS -->
+  <section id="departments" class="section-padding" style="background-color: var(--color-bg-light); border-top: 1px solid var(--color-border);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Academic Divisions</span>
+        <h2 class="section-title">Departments & Faculty Organization</h2>
+        <p class="section-desc">
+          Official engineering and management academic divisions at NCERC. Faculty profile records will be loaded dynamically via the SQL database integration.
+        </p>
+      </div>
+
+      <div class="dept-grid">
+        <div class="dept-card">
+          <div>
+            <h3>Computer Science & Engineering</h3>
+            <div class="dept-hod">Division Head: [Managed via Database]</div>
+            <p class="dept-desc">Covers Software Engineering, AI & Machine Learning, Data Analytics, and Cloud Systems.</p>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="showDeptDetails('cse')">Department Details</button>
+        </div>
+
+        <div class="dept-card">
+          <div>
+            <h3>Electronics & Communication</h3>
+            <div class="dept-hod">Division Head: [Managed via Database]</div>
+            <p class="dept-desc">Covers VLSI Circuit Design, Embedded Robotics, Signal Processing, and Wireless Communication.</p>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="showDeptDetails('ece')">Department Details</button>
+        </div>
+
+        <div class="dept-card">
+          <div>
+            <h3>Mechatronics Engineering</h3>
+            <div class="dept-hod">Division Head: [Managed via Database]</div>
+            <p class="dept-desc">Interdisciplinary department combining mechanics, electronics, and industrial robotics.</p>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="showDeptDetails('mct')">Department Details</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section id="contact" class="section-padding contact-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Contact NCERC</span>
+        <h2 class="section-title">Campus Administration & Admissions Office</h2>
+        <p class="section-desc">Get in touch with the admissions team or visit the NCERC campus at Pampady, Thrissur.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info-box">
+          <div class="contact-detail-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-detail-text">
+              <h4>Official Campus Address</h4>
+              <p>Nehru College of Engineering and Research Centre<br>Nila Gardens, Pampady, Thiruvilwamala,<br>Thrissur (Dist) - 680 588, Kerala, India</p>
+            </div>
+          </div>
+
+          <div class="contact-detail-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-detail-text">
+              <h4>Admissions Hotlines</h4>
+              <p>+91 9656000005<br>+91 9605771555<br>Office: 04884 284000</p>
+            </div>
+          </div>
+
+          <div class="contact-detail-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-detail-text">
+              <h4>Email Communications</h4>
+              <p>admissions@ncerc.ac.in<br>info@ncerc.ac.in</p>
+            </div>
+          </div>
+        </div>
+
+        <form class="contact-form" onsubmit="handleContactSubmit(event)">
+          <h3 style="font-size: 1.125rem; font-weight: 700; color: var(--ncerc-navy); margin-bottom: 16px;">Send an Admission Enquiry</h3>
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" class="form-control" placeholder="Applicant full name" required>
+          </div>
+          <div class="form-group">
+            <label for="emailAddr">Email Address</label>
+            <input type="email" id="emailAddr" class="form-control" placeholder="name@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="phoneNum">Phone Number</label>
+            <input type="tel" id="phoneNum" class="form-control" placeholder="+91 XXXXX XXXXX" required>
+          </div>
+          <div class="form-group">
+            <label for="courseSelect">Interested Course</label>
+            <select id="courseSelect" class="form-control" required>
+              <option value="">Select Programme...</option>
+              <option value="B.Tech Mechatronics Engineering">B.Tech Mechatronics Engineering</option>
+              <option value="B.Tech Computer Science & Engineering">B.Tech Computer Science & Engineering</option>
+              <option value="B.Tech CSE (AI & ML)">B.Tech CSE (Artificial Intelligence & Machine Learning)</option>
+              <option value="B.Tech Electronics & Communication">B.Tech Electronics & Communication</option>
+              <option value="B.Tech Electrical & Electronics">B.Tech Electrical & Electronics</option>
+              <option value="B.Tech Mechanical Engineering">B.Tech Mechanical Engineering</option>
+              <option value="M.Tech Programmes">M.Tech Programmes</option>
+              <option value="MCA Master of Computer Applications">MCA Master of Computer Applications</option>
+              <option value="MBA Master of Business Administration">MBA Master of Business Administration</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Inquiry</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <img src="{{ url_for('static', filename='images/ncerc_logo.svg') }}" alt="NCERC Footer Logo" style="width: 44px; height: 48px;">
+            <span style="color: #FFF; font-weight: 800; font-size: 1.1rem;">NCERC TH RISSUR</span>
+          </div>
+          <p style="line-height: 1.6;">
+            Nehru College of Engineering and Research Centre (UGC Autonomous) is an accredited institution sponsored by the Nehru Group of Institutions, offering technical education in Kerala.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <div class="footer-links">
+            <a href="#about">About Institution</a>
+            <a href="#academics">Degree Programmes</a>
+            <a href="#placements">Placement Cell</a>
+            <a href="#facilities">Central Library</a>
+            <a href="#contact">Campus Location</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Accreditation</h4>
+          <div class="footer-links">
+            <a href="#">UGC Autonomous Status</a>
+            <a href="#">NAAC Accreditation ('A' Grade)</a>
+            <a href="#">NBA Accredited Programmes</a>
+            <a href="#">KTU Affiliation & Research</a>
+            <a href="#">AICTE Approval Letters</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Admissions Office</h4>
+          <p>Nila Gardens, Pampady, Thiruvilwamala, Thrissur (Dist) - 680 588, Kerala</p>
+          <p style="margin-top: 8px;"><strong>Hotlines:</strong> +91 9656000005, +91 9605771555</p>
+          <p><strong>Email:</strong> admissions@ncerc.ac.in</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Nehru College of Engineering and Research Centre (NCERC) - UGC Autonomous. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- -------------------------------------------------------------
+       FRIENDLY NCERC EDUCATIONAL ROBOT MASCOT CHATBOT LAUNCHER
+  ------------------------------------------------------------- -->
+  <button id="chatbotLauncher" class="chatbot-launcher" onclick="toggleChatbot()" aria-label="Open NCERC College Assistant">
+    <div class="robot-mascot-wrapper">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 140" class="ncerc-robot-svg">
+        <!-- Graduation Cap (🎓) -->
+        <g class="robot-grad-cap">
+          <path d="M 46 28 Q 60 22 74 28 L 74 33 Q 60 38 46 33 Z" fill="#061527" stroke="#C5A059" stroke-width="1.5"/>
+          <polygon points="60,8 100,24 60,34 20,24" fill="#0B2545" stroke="#C5A059" stroke-width="2"/>
+          <circle cx="60" cy="21" r="3" fill="#C5A059" />
+          <path d="M 60 21 Q 84 22 88 38 L 88 46" fill="none" stroke="#C5A059" stroke-width="2" stroke-linecap="round" />
+          <circle cx="88" cy="47" r="2.5" fill="#8B0000" />
+        </g>
+        <!-- Head -->
+        <g class="robot-head-group">
+          <rect x="25" y="48" width="6" height="14" rx="2" fill="#C5A059" />
+          <rect x="89" y="48" width="6" height="14" rx="2" fill="#C5A059" />
+          <rect x="30" y="38" width="60" height="42" rx="10" fill="#F8F9FA" stroke="#0B2545" stroke-width="3" />
+          <rect x="36" y="44" width="48" height="30" rx="6" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" />
+          <ellipse cx="48" cy="56" rx="4.5" ry="5.5" fill="#0B2545" />
+          <ellipse cx="72" cy="56" rx="4.5" ry="5.5" fill="#0B2545" />
+          <circle cx="46.5" cy="54" r="1.5" fill="#FFFFFF" />
+          <circle cx="70.5" cy="54" r="1.5" fill="#FFFFFF" />
+          <path d="M 52 65 Q 60 71 68 65" fill="none" stroke="#8B0000" stroke-width="2.5" stroke-linecap="round" />
+        </g>
+        <!-- Body -->
+        <rect x="53" y="80" width="14" height="6" rx="2" fill="#C5A059" />
+        <path d="M 36 86 L 84 86 L 80 120 L 40 120 Z" fill="#0B2545" stroke="#061527" stroke-width="2.5" />
+        <circle cx="60" cy="100" r="7" fill="#C5A059" stroke="#FFFFFF" stroke-width="1.5" />
+        <!-- Left Arm -->
+        <g class="robot-arm-left">
+          <rect x="25" y="88" width="8" height="20" rx="4" fill="#E5E7EB" stroke="#0B2545" stroke-width="2" />
+        </g>
+        <!-- Right Arm (Hand-Wave Target) -->
+        <g class="robot-arm-right">
+          <g class="arm-wave-rotator" id="armWaveRotator">
+            <path d="M 86 90 L 102 72 L 108 78 L 91 96 Z" fill="#E5E7EB" stroke="#0B2545" stroke-width="2" />
+            <circle cx="105" cy="72" r="5" fill="#C5A059" stroke="#0B2545" stroke-width="1.5" />
+          </g>
+        </g>
+      </svg>
+    </div>
+    <span>College Assistant</span>
+  </button>
+
+  <!-- CHATBOT PANEL WINDOW -->
+  <div id="chatbotPanel" class="chatbot-panel" role="dialog" aria-labelledby="chatTitle">
+    <!-- Header with Mascot Icon -->
+    <div class="chat-header">
+      <div class="chat-header-left">
+        <div class="chat-header-robot-icon">
+          <svg viewBox="0 0 120 140">
+            <polygon points="60,8 100,24 60,34 20,24" fill="#0B2545" stroke="#C5A059" stroke-width="2"/>
+            <rect x="30" y="38" width="60" height="42" rx="10" fill="#F8F9FA" stroke="#FFFFFF" stroke-width="2" />
+            <ellipse cx="48" cy="56" rx="4" ry="5" fill="#0B2545" />
+            <ellipse cx="72" cy="56" rx="4" ry="5" fill="#0B2545" />
+            <path d="M 52 65 Q 60 71 68 65" fill="none" stroke="#8B0000" stroke-width="2.5" />
+          </svg>
+        </div>
+        <div class="chat-header-info">
+          <span id="chatTitle" class="chat-title">NCERC College Assistant</span>
+          <span class="chat-subtitle">How can we help you?</span>
+        </div>
+      </div>
+      <div class="chat-controls">
+        <button class="chat-control-btn" title="Minimize" onclick="toggleChatbot()">_</button>
+        <button class="chat-control-btn" title="Close" onclick="toggleChatbot()">✕</button>
+      </div>
+    </div>
+
+    <!-- Empty Conversation Container -->
+    <div id="chatBody" class="chat-body">
+      <div class="chat-empty-state" id="chatEmptyState">
+        <svg viewBox="0 0 120 140">
+          <g class="robot-grad-cap">
+            <polygon points="60,8 100,24 60,34 20,24" fill="#0B2545" stroke="#C5A059" stroke-width="2"/>
+          </g>
+          <rect x="30" y="38" width="60" height="42" rx="10" fill="#F8F9FA" stroke="#0B2545" stroke-width="2" />
+          <ellipse cx="48" cy="56" rx="4.5" ry="5.5" fill="#0B2545" />
+          <ellipse cx="72" cy="56" rx="4.5" ry="5.5" fill="#0B2545" />
+          <path d="M 52 65 Q 60 71 68 65" fill="none" stroke="#8B0000" stroke-width="2.5" />
+        </svg>
+        <p><strong>How can we help you?</strong></p>
+        <p style="font-size: 0.8125rem; color: var(--color-text-light); margin-top: 4px;">
+          Ask a question or tap a suggested topic below.
+        </p>
+      </div>
+    </div>
+
+    <!-- Suggested Question Buttons -->
+    <div class="chat-suggestions">
+      <button class="chip-btn" onclick="selectSuggestedQuestion('Where is the library?')">Where is the library?</button>
+      <button class="chip-btn" onclick="selectSuggestedQuestion('What courses are offered?')">What courses are offered?</button>
+      <button class="chip-btn" onclick="selectSuggestedQuestion('Tell me about scholarships')">Tell me about scholarships</button>
+      <button class="chip-btn" onclick="selectSuggestedQuestion('Tell me about placements')">Tell me about placements</button>
+      <button class="chip-btn" onclick="selectSuggestedQuestion('Who teaches this subject?')">Who teaches this subject?</button>
+    </div>
+
+    <!-- Input Form -->
+    <form class="chat-footer" onsubmit="handleChatSubmit(event)">
+      <input type="text" id="chatInput" class="chat-input" placeholder="Type your query here..." autocomplete="off">
+      <button type="submit" class="chat-send-btn">Send</button>
+    </form>
+  </div>
+
+  <!-- MODAL: ADMISSIONS ENQUIRY -->
+  <div id="admissionsModal" class="modal-overlay">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeAdmissionsModal()">✕</button>
+      <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--ncerc-navy); margin-bottom: 8px;">NCERC Admission Registration (2026-27)</h3>
+      <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 20px;">Register your interest for B.Tech, M.Tech, MCA, or MBA admissions.</p>
+      
+      <form onsubmit="handleModalSubmit(event)">
+        <div class="form-group">
+          <label>Applicant Name</label>
+          <input type="text" class="form-control" placeholder="Full name of applicant" required>
+        </div>
+        <div class="form-group">
+          <label>Selected Programme</label>
+          <input type="text" id="modalCourseInput" class="form-control" placeholder="e.g. B.Tech Computer Science & Engineering" required>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" class="form-control" placeholder="+91 XXXXX XXXXX" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 12px;">Submit Registration</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: DEPARTMENT DETAILS -->
+  <div id="deptModal" class="modal-overlay">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeDeptModal()">✕</button>
+      <div id="deptModalContent">
+        <!-- Filled dynamically by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
