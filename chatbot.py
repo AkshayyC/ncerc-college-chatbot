@@ -1,5 +1,22 @@
+import os
 import re
+import time
+from pathlib import Path
+
+from dotenv import load_dotenv
+from google import genai
+
 from database import get_all_knowledge
+
+
+# Load the API key from the project's .env file
+load_dotenv(Path(__file__).with_name(".env"))
+
+API_KEY = os.getenv("GEMINI_API_KEY")
+
+client = genai.Client(api_key=API_KEY) if API_KEY else None
+
+MODEL = "gemini-3.5-flash-lite"
 
 
 def normalize(text):
@@ -7,44 +24,6 @@ def normalize(text):
     text = re.sub(r"[^\w\s?]", " ", text)
     text = re.sub(r"\s+", " ", text)
     return text.strip()
-
-
-def split_questions(message):
-    """
-    Splits a message into separate questions/topics.
-
-    Examples:
-
-    "Where is NCERC and what courses are offered?"
-
-    becomes:
-
-    ["where is ncerc", "what courses are offered"]
-    """
-
-    message = message.strip()
-
-    if not message:
-        return []
-
-    parts = re.split(
-        r"\?|"
-        r"\band\b|"
-        r"\balso\b|"
-        r"\bplus\b",
-        message,
-        flags=re.IGNORECASE
-    )
-
-    questions = []
-
-    for part in parts:
-        part = part.strip(" ,.")
-
-        if part:
-            questions.append(part)
-
-    return questions
 
 
 def score_question(question, keywords):
@@ -58,11 +37,15 @@ def score_question(question, keywords):
     score = 0
 
     for keyword in keyword_list:
+        if not keyword:
+            continue
 
-        if keyword and keyword in question:
+        # Match complete phrases or words, not partial words
+        pattern = r"(?<!\w)" + re.escape(keyword) + r"(?!\w)"
+
+        if re.search(pattern, question):
             score += 1
 
-            # Give longer/more specific phrases more importance
             if len(keyword.split()) > 1:
                 score += 1
 
@@ -70,16 +53,11 @@ def score_question(question, keywords):
 
 
 def find_best_answer(question, knowledge):
-
     best_row = None
     best_score = 0
 
     for row in knowledge:
-
-        score = score_question(
-            question,
-            row["keywords"]
-        )
+        score = score_question(question, row["keywords"])
 
         if score > best_score:
             best_score = score
@@ -91,37 +69,157 @@ def find_best_answer(question, knowledge):
     return None
 
 
-def get_response(message):
+def is_greeting(message):
+    text = normalize(message)
 
+    greetings = {
+        "hi",
+        "hello",
+        "hey",
+        "hii",
+        "hiii",
+        "good morning",
+        "good afternoon",
+        "good evening",
+        "how are you",
+        "who are you",
+        "what is your name",
+        "thanks",
+        "thank you",
+        "bye",
+        "goodbye"
+    }
+
+    return text in greetings
+
+
+def is_college_question(message):
+    text = normalize(message)
+
+    college_terms = [
+        "ncerc",
+        "nehru college",
+        "admission",
+        "admissions",
+        "fee structure",
+        "fees",
+        "fee",
+        "scholarship",
+        "hostel",
+        "faculty",
+        "principal",
+        "hod",
+        "department",
+        "departments",
+        "placement",
+        "placements",
+        "library",
+        "semester exam",
+        "hall ticket",
+        "ktu",
+        "attendance",
+        "student portal",
+        "canteen",
+        "college bus",
+        "college timings",
+        "college location",
+        "college address",
+        "college website",
+        "anti ragging",
+        "campus",
+        "courses offered",
+        "course offered",
+        "college"
+    ]
+
+    return any(term in text for term in college_terms)
+
+
+def ask_gemini(message):
+    if client is None:
+        return "Gemini is not configured. Please check your .env file."
+
+    response = client.models.generate_content(
+        model=MODEL,
+        contents=message,
+        config={
+            "system_instruction": """
+You are the NCERC College Assistant, embedded directly on the official NCERC college website.
+Answer general questions about Python, AI, science, mathematics, and everyday topics.
+For NCERC information, never invent official facts.
+If college information is missing, say:
+Sorry, I don't have that information in my current NCERC database yet. Please contact the relevant college department for confirmation.
+Never tell users to visit the official NCERC website because they are already using it.
+Keep answers friendly and concise.
+"""
+        }
+    )
+
+    if response.text:
+        return response.text.strip()
+
+    return "Sorry, I couldn't generate an answer. Please try again."
+
+
+def get_response(message):
     if not message or not message.strip():
         return "Please enter a question so I can help you."
 
-    knowledge = get_all_knowledge()
+    message = message.strip()
+    normalized_message = normalize(message)
 
-    questions = split_questions(message)
+    try:
+        knowledge = get_all_knowledge()
 
-    answers = []
+        # Handle greetings and simple social messages
+        if is_greeting(message):
+            answer = find_best_answer(message, knowledge)
 
-    for question in questions:
+            if answer:
+                return answer
 
-        answer = find_best_answer(
-            question,
-            knowledge
-        )
+            if normalized_message in {"hi", "hello", "hey", "hii", "hiii"}:
+                return (
+                    "Hello! 👋 I'm the NCERC College Assistant. "
+                    "How can I help you today?"
+                )
 
-        if answer and answer not in answers:
-            answers.append(answer)
+        # College questions must use the NCERC knowledge base
+        if is_college_question(message):
+            answer = find_best_answer(message, knowledge)
 
-    if not answers:
+            if answer:
+                return answer
+
+            return (
+                "I'm sorry, I couldn't find reliable information "
+                "about that in my NCERC knowledge base yet. "
+                "Please check the official NCERC website or "
+                "contact the college office for confirmation."
+            )
+
+        # General questions are answered by Gemini
+        return ask_gemini(message)
+
+    except Exception as error:
+        print("CHATBOT ERROR TYPE:", type(error).__name__)
+        print("CHATBOT ERROR DETAILS:", error)
+
+        error_text = str(error).lower()
+
+        if "503" in error_text or "unavailable" in error_text:
+            return (
+                "Gemini is temporarily busy. Please try again "
+                "in a few moments."
+            )
+
+        if "429" in error_text or "resource_exhausted" in error_text:
+            return (
+                "The AI service has reached its current usage "
+                "limit. Please try again later."
+            )
 
         return (
-            "I'm sorry, I couldn't find that information "
-            "in my NCERC knowledge base yet. "
-            "Try asking about courses, admissions, "
-            "library, placements, location or contact information."
+            "Sorry, I couldn't process your question right now. "
+            "Please try again in a moment."
         )
-
-    if len(answers) == 1:
-        return answers[0]
-
-    return " ".join(answers)

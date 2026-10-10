@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, jsonify
-
 from database import initialize_database
 from chatbot import get_response
 
@@ -35,8 +34,10 @@ def chat():
         })
 
     try:
+        print("USER MESSAGE:",message)
 
         response = get_response(message)
+        print("CHATBOT RESPONSE:",response)
 
         return jsonify({
             "response": response
