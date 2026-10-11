@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review AI Knowledge Draft</title>
+</head>
+<body>
+    <h1>Review AI Knowledge Draft</h1>
+
+    <p>Check the generated information before saving it.</p>
+
+    <form action="{{ url_for('admin_add_knowledge') }}" method="POST">
+        <label for="category">Category</label><br>
+        <input
+            type="text"
+            id="category"
+            name="category"
+            value="{{ draft.category }}"
+            required
+        ><br><br>
+
+        <label for="keywords">Keywords (comma-separated)</label><br>
+        <input
+            type="text"
+            id="keywords"
+            name="keywords"
+            value="{{ draft.keywords }}"
+            required
+        ><br><br>
+
+        <label for="answer">Answer</label><br>
+        <textarea
+            id="answer"
+            name="answer"
+            rows="6"
+            required
+        >{{ draft.answer }}</textarea><br><br>
+
+        <button type="submit">Approve and Save to Knowledge Base</button>
+    </form>
+
+    <p>
+        <a href="{{ url_for('admin_dashboard') }}">Return to Dashboard</a>
+    </p>
+</body>
+</html>

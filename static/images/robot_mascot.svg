@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 140" width="120" height="140" class="ncerc-robot-svg">
+  <defs>
+    <!-- Colors: Navy #0B2545, Gold #C5A059, Burgundy #8B0000 -->
+    <linearGradient id="robotHeadGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#EDF2F7" />
+    </linearGradient>
+    <linearGradient id="robotBodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0B2545" />
+      <stop offset="100%" stop-color="#061527" />
+    </linearGradient>
+  </defs>
+
+  <!-- 1. GRADUATION CAP (TOP OF HEAD) -->
+  <g class="robot-grad-cap">
+    <!-- Cap Skull Base -->
+    <path d="M 46 28 Q 60 22 74 28 L 74 33 Q 60 38 46 33 Z" fill="#061527" stroke="#C5A059" stroke-width="1.5"/>
+    <!-- Mortarboard Diamond Top -->
+    <polygon points="60,8 100,24 60,34 20,24" fill="#0B2545" stroke="#C5A059" stroke-width="2"/>
+    <!-- Cap Button Top -->
+    <circle cx="60" cy="21" r="3" fill="#C5A059" />
+    <!-- Tassel String & Hanging Gold Fringe -->
+    <path d="M 60 21 Q 84 22 88 38 L 88 46" fill="none" stroke="#C5A059" stroke-width="2" stroke-linecap="round" />
+    <circle cx="88" cy="47" r="2.5" fill="#8B0000" />
+  </g>
+
+  <!-- 2. ROBOT HEAD -->
+  <g class="robot-head-group">
+    <!-- Side Ear Nodes (Gold) -->
+    <rect x="25" y="48" width="6" height="14" rx="2" fill="#C5A059" />
+    <rect x="89" y="48" width="6" height="14" rx="2" fill="#C5A059" />
+
+    <!-- Main Head Structure -->
+    <rect x="30" y="38" width="60" height="42" rx="10" fill="url(#robotHeadGrad)" stroke="#0B2545" stroke-width="3" />
+    
+    <!-- Face Screen Inner Box -->
+    <rect x="36" y="44" width="48" height="30" rx="6" fill="#F8F9FA" stroke="#CBD5E1" stroke-width="1" />
+
+    <!-- Friendly Oval Eyes -->
+    <ellipse cx="48" cy="56" rx="4.5" ry="5.5" fill="#0B2545" />
+    <ellipse cx="72" cy="56" rx="4.5" ry="5.5" fill="#0B2545" />
+    <!-- Eye Highlights -->
+    <circle cx="46.5" cy="54" r="1.5" fill="#FFFFFF" />
+    <circle cx="70.5" cy="54" r="1.5" fill="#FFFFFF" />
+
+    <!-- Friendly Welcoming Smile -->
+    <path d="M 52 65 Q 60 71 68 65" fill="none" stroke="#8B0000" stroke-width="2.5" stroke-linecap="round" />
+
+    <!-- Cheeks (Subtle Warm Pink Tone) -->
+    <circle cx="42" cy="62" r="2.5" fill="#FCA5A5" opacity="0.6" />
+    <circle cx="78" cy="62" r="2.5" fill="#FCA5A5" opacity="0.6" />
+  </g>
+
+  <!-- 3. NECK & BODY -->
+  <!-- Neck Joint -->
+  <rect x="53" y="80" width="14" height="6" rx="2" fill="#C5A059" />
+
+  <!-- Torso Body -->
+  <path d="M 36 86 L 84 86 L 80 120 L 40 120 Z" fill="url(#robotBodyGrad)" stroke="#0B2545" stroke-width="2.5" />
+
+  <!-- Chest Emblem / Badge (NCERC Gold Star Accent) -->
+  <circle cx="60" cy="100" r="8" fill="#C5A059" stroke="#FFFFFF" stroke-width="1.5" />
+  <path d="M 60 95 L 62 98 L 65 99 L 63 101 L 64 105 L 60 103 L 56 105 L 57 101 L 55 99 L 58 98 Z" fill="#0B2545" />
+
+  <!-- 4. LEFT ARM (RESTING POSITION AT SIDE) -->
+  <g class="robot-arm-left">
+    <rect x="25" y="88" width="8" height="22" rx="4" fill="#E5E7EB" stroke="#0B2545" stroke-width="2" />
+    <circle cx="29" cy="112" r="3.5" fill="#C5A059" />
+  </g>
+
+  <!-- 5. RIGHT ARM (WAVING HAND ANIMATION TARGET) -->
+  <g class="robot-arm-right" id="robotWavingArm">
+    <!-- Pivot Origin at Shoulder (x=91, y=90) -->
+    <g class="arm-wave-rotator">
+      <!-- Upper & Lower Arm -->
+      <path d="M 87 90 L 104 74 L 110 80 L 92 98 Z" fill="#E5E7EB" stroke="#0B2545" stroke-width="2" />
+      <!-- Hand / Mitten (Waving) -->
+      <circle cx="107" cy="74" r="5" fill="#C5A059" stroke="#0B2545" stroke-width="1.5" />
+      <path d="M 103 70 Q 107 65 111 70" fill="none" stroke="#0B2545" stroke-width="1.5" stroke-linecap="round" />
+    </g>
+  </g>
+</svg>

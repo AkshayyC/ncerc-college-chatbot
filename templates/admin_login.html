@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCERC Admin Login</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f3f6fb;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-box {
+            width: 90%;
+            max-width: 400px;
+            padding: 32px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #173b70;
+            text-align: center;
+        }
+
+        p {
+            color: #555;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 6px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 24px;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background: #173b70;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #24549a;
+        }
+    </style>
+</head>
+<body>
+    <main class="login-box">
+        <div style="text-align: center; margin-bottom: 16px;">
+            <img src="{{ url_for('static', filename='images/ncerc_logo.svg') }}" alt="NCERC Emblem" style="width: 56px; height: 56px;">
+        </div>
+        <h1>NCERC Admin</h1>
+        <p>Sign in to manage college information.</p>
+
+        {% if error %}
+        <div style="background: #FEE2E2; border: 1px solid #FCA5A5; color: #B91C1C; padding: 10px 14px; border-radius: 6px; font-size: 14px; margin-top: 14px; text-align: center;">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form action="/admin/login" method="POST">
+            <label for="username">Username</label>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                required
+                autocomplete="username"
+            >
+
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                autocomplete="current-password"
+            >
+
+            <button type="submit">Sign In</button>
+        </form>
+    </main>
+</body>
+</html>

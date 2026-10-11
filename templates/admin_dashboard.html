@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NCERC — Administration Console</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body>
+  <div class="admin-app">
+
+    <!-- Mobile Backdrop -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="admin-sidebar" id="adminSidebar">
+      <!-- Brand Area -->
+      <div class="sidebar-brand">
+        <img src="{{ url_for('static', filename='images/ncerc_logo.svg') }}" alt="NCERC Emblem" class="brand-logo-img">
+        <div class="brand-info">
+          <span class="brand-name">NCERC</span>
+          <span class="brand-tag">ADMIN CONSOLE</span>
+          <span class="brand-badge">Autonomous • KTU</span>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Navigation</div>
+        
+        <button type="button" class="nav-item-btn active" data-view="overview">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span>Overview</span>
+        </button>
+
+        <button type="button" class="nav-item-btn" data-view="knowledge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          <span>Knowledge Base</span>
+          <span class="nav-badge-pill gold">{{ total_records }}</span>
+        </button>
+
+        <button type="button" class="nav-item-btn" data-view="add">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+          <span>Add Knowledge</span>
+        </button>
+
+        <button type="button" class="nav-item-btn" data-view="import">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          <span>Import Dataset</span>
+        </button>
+
+        <div class="nav-section-title">AI & Ingestion</div>
+
+        <button type="button" class="nav-item-btn" data-view="notices">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          <span>Notice Management</span>
+        </button>
+
+        <button type="button" class="nav-item-btn" data-view="ai-drafts">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <span>AI Draft Review</span>
+          <span class="nav-badge-pill">0</span>
+        </button>
+      </nav>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <a href="/" target="_blank" class="footer-link-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          <span>Student Website</span>
+        </a>
+
+        <a href="/admin/logout" class="footer-link-btn logout">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          <span>Sign Out</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN APP AREA -->
+    <main class="admin-main">
+      <!-- HEADER -->
+      <header class="admin-header">
+        <div class="header-left">
+          <button type="button" class="mobile-menu-btn" id="sidebarToggle" aria-label="Toggle navigation menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+          <div class="header-title-box">
+            <h1 class="header-title" id="currentViewTitle">Executive Administration Overview</h1>
+            <span class="header-breadcrumb" id="viewBreadcrumb">Admin Console / Executive Administration Overview</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Live Status -->
+          <div class="system-status-indicator">
+            <span class="status-dot"></span>
+            <span>SQLite Connected • Gemini 3.5 Active</span>
+          </div>
+
+          <!-- Admin Profile -->
+          <div class="admin-profile-pill">
+            <div class="profile-avatar">AD</div>
+            <div class="profile-meta">
+              <span class="profile-username">{{ admin_username }}</span>
+              <span class="profile-role">System Administrator</span>
+            </div>
+          </div>
+
+          <!-- Quick Logout -->
+          <a href="/admin/logout" class="header-logout-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            <span>Log Out</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- CONTENT BODY -->
+      <div class="admin-content-body">
+
+        <!-- ==================================================================
+             VIEW 1: OVERVIEW
+             ================================================================== -->
+        <section class="tab-pane active" id="view-overview">
+          <!-- Institutional Welcome Banner -->
+          <div class="welcome-banner">
+            <div class="banner-content">
+              <h2>Nehru College of Engineering and Research Centre</h2>
+              <p>Autonomous Institution • NAAC Accredited • KTU Affiliated. Manage student chatbot queries, SQLite knowledge records, and AI ingestion pipelines.</p>
+            </div>
+            <a href="#" class="banner-action-link" data-shortcut-target="knowledge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+              <span>Explore Knowledge Base</span>
+            </a>
+          </div>
+
+          <!-- 4 Metric Cards -->
+          <div class="metrics-grid">
+            <!-- Card 1: Knowledge Records -->
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Knowledge Records</span>
+                <div class="metric-icon-box navy">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                </div>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value">{{ total_records }}</span>
+                <span class="metric-tag green">Active in DB</span>
+              </div>
+              <span class="metric-subtext">Verified SQLite records in ncerc.db</span>
+            </div>
+
+            <!-- Card 2: Categories -->
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Knowledge Categories</span>
+                <div class="metric-icon-box gold">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                </div>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value">{{ total_categories }}</span>
+                <span class="metric-tag blue">Structured</span>
+              </div>
+              <span class="metric-subtext">Campus, admissions & academic topics</span>
+            </div>
+
+            <!-- Card 3: Pending AI Drafts -->
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Pending AI Drafts</span>
+                <div class="metric-icon-box purple">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value">0</span>
+                <span class="metric-tag green">Up to date</span>
+              </div>
+              <span class="metric-subtext">No unreviewed circular drafts</span>
+            </div>
+
+            <!-- Card 4: Processed Notices -->
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Processed Notices</span>
+                <div class="metric-icon-box teal">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                </div>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value">0</span>
+                <span class="metric-tag amber">Phase 2 Pipeline</span>
+              </div>
+              <span class="metric-subtext">Notice parser staged for ingestion</span>
+            </div>
+          </div>
+
+          <!-- Section Grid: Recent Records & Infrastructure Health -->
+          <div class="dashboard-grid-2">
+            <!-- Left: Recent Knowledge Preview -->
+            <div class="dashboard-card">
+              <div class="card-header-row">
+                <div>
+                  <h3 class="card-title">Recent Knowledge Records</h3>
+                  <p class="card-subtitle">Sample entries from SQLite database (ncerc.db)</p>
+                </div>
+                <button type="button" class="btn-action" data-shortcut-target="knowledge">View All {{ total_records }}</button>
+              </div>
+              <div class="card-body" style="padding: 0;">
+                <div class="table-responsive-box" style="border: none;">
+                  <table class="admin-data-table">
+                    <thead>
+                      <tr>
+                        <th style="width: 50px;">ID</th>
+                        <th style="width: 140px;">Category</th>
+                        <th style="width: 200px;">Keywords</th>
+                        <th>Answer Snippet</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for item in knowledge_items[:6] %}
+                      <tr>
+                        <td><span class="id-badge">#{{ item.id }}</span></td>
+                        <td><span class="category-tag">{{ item.category }}</span></td>
+                        <td>
+                          <div class="keyword-chips">
+                            {% for kw in item.keywords.split(',')[:3] %}
+                              <span class="keyword-chip">{{ kw.strip() }}</span>
+                            {% endfor %}
+                          </div>
+                        </td>
+                        <td>
+                          <div class="answer-preview-cell">{{ item.answer[:110] }}{% if item.answer|length > 110 %}...{% endif %}</div>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: System Infrastructure Health & Shortcuts -->
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+              <!-- Health Card -->
+              <div class="dashboard-card">
+                <div class="card-header-row">
+                  <div>
+                    <h3 class="card-title">System Status</h3>
+                    <p class="card-subtitle">Active services & database</p>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="health-list">
+                    <div class="health-item">
+                      <div class="health-label-group">
+                        <span class="health-name">SQLite Database</span>
+                        <span class="health-meta">ncerc.db ({{ total_records }} rows)</span>
+                      </div>
+                      <span class="health-status-badge online">Connected</span>
+                    </div>
+
+                    <div class="health-item">
+                      <div class="health-label-group">
+                        <span class="health-name">Gemini AI Model</span>
+                        <span class="health-meta">gemini-3.5-flash-lite</span>
+                      </div>
+                      <span class="health-status-badge online">Active</span>
+                    </div>
+
+                    <div class="health-item">
+                      <div class="health-label-group">
+                        <span class="health-name">Admin Session</span>
+                        <span class="health-meta">Werkzeug scrypt</span>
+                      </div>
+                      <span class="health-status-badge online">Secured</span>
+                    </div>
+
+                    <div class="health-item">
+                      <div class="health-label-group">
+                        <span class="health-name">Student Web Portal</span>
+                        <span class="health-meta">Flask route /</span>
+                      </div>
+                      <span class="health-status-badge online">Operational</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick Action Shortcuts -->
+              <div class="dashboard-card">
+                <div class="card-header-row">
+                  <div>
+                    <h3 class="card-title">Quick Actions</h3>
+                    <p class="card-subtitle">Administrative shortcuts</p>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="actions-shortcut-grid">
+                    <button type="button" class="shortcut-btn" data-shortcut-target="knowledge">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                      <span class="shortcut-title">Search Q&A</span>
+                      <span class="shortcut-desc">Browse 160 entries</span>
+                    </button>
+
+                    <button type="button" class="shortcut-btn" data-shortcut-target="add">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                      <span class="shortcut-title">New Entry</span>
+                      <span class="shortcut-desc">Draft knowledge</span>
+                    </button>
+
+                    <button type="button" class="shortcut-btn" data-shortcut-target="import">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                      <span class="shortcut-title">Bulk Import</span>
+                      <span class="shortcut-desc">CSV/JSON datasets</span>
+                    </button>
+
+                    <a href="/" target="_blank" class="shortcut-btn">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                      <span class="shortcut-title">Student Portal</span>
+                      <span class="shortcut-desc">Test live chatbot</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             VIEW 2: KNOWLEDGE BASE
+             ================================================================== -->
+        <section class="tab-pane" id="view-knowledge">
+          <div class="dashboard-card">
+            <div class="card-header-row">
+              <div>
+                <h2 class="card-title">Knowledge Base Repository</h2>
+                <p class="card-subtitle">Verified Q&A answers served by NCERC College Chatbot</p>
+              </div>
+              <button type="button" class="btn-primary" data-shortcut-target="add">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <span>Add Record</span>
+              </button>
+            </div>
+
+            <div class="card-body">
+              <!-- Toolbar -->
+              <div class="table-toolbar">
+                <div class="search-input-group">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                  <input type="text" id="tableSearch" class="search-control" placeholder="Search by keywords, category, or answer content...">
+                </div>
+
+                <select id="categoryFilter" class="filter-select">
+                  <option value="all">All Categories ({{ total_categories }})</option>
+                  {% for cat in categories %}
+                    <option value="{{ cat }}">{{ cat }}</option>
+                  {% endfor %}
+                </select>
+
+                <span class="toolbar-counter">
+                  Showing <strong id="visibleCount">{{ total_records }}</strong> of {{ total_records }} records
+                </span>
+              </div>
+
+              <!-- Table -->
+              <div class="table-responsive-box">
+                <table class="admin-data-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 55px;">ID</th>
+                      <th style="width: 140px;">Category</th>
+                      <th style="width: 220px;">Search Keywords</th>
+                      <th>Official Verified Answer</th>
+                      <th style="width: 130px; text-align: center;">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="knowledgeTableBody">
+                    {% for item in knowledge_items %}
+                    <tr data-category="{{ item.category }}">
+                      <td><span class="id-badge">#{{ item.id }}</span></td>
+                      <td><span class="category-tag">{{ item.category }}</span></td>
+                      <td>
+                        <div class="keyword-chips">
+                          {% for kw in item.keywords.split(',') %}
+                            <span class="keyword-chip">{{ kw.strip() }}</span>
+                          {% endfor %}
+                        </div>
+                      </td>
+                      <td>
+                        <div class="answer-preview-cell">{{ item.answer }}</div>
+                      </td>
+                
+<td style="text-align: center;">
+  <div class="table-actions" style="justify-content: center;">
+
+    <!-- Edit remains a Phase 2 placeholder -->
+    <button
+      type="button"
+      class="btn-action staged-action-btn"
+      data-feature="Editing record #{{ item.id }}">
+      Edit
+    </button>
+
+    <!-- Delete submits to Flask -->
+    <form
+      action="{{ url_for('admin_delete_knowledge', knowledge_id=item.id) }}"
+      method="POST"
+      style="display: inline;"
+      onsubmit="return confirm('Are you sure you want to delete knowledge record #{{ item.id }}? This cannot be undone.');">
+
+      <button
+        type="submit"
+        class="btn-action"
+        style="color: #DC2626;">
+        Delete
+      </button>
+
+    </form>
+
+  </div>
+</td>
+
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Empty Results Notice -->
+              <div id="noResultsState" class="empty-state-card" style="display: none;">
+                <div class="empty-state-icon">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+                <h4 class="empty-state-title">No matching knowledge records</h4>
+                <p class="empty-state-text">No entries in the knowledge base match your search keywords or category filter. Try clearing your search query.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             VIEW 3: ADD KNOWLEDGE
+             ================================================================== -->
+        <section class="tab-pane" id="view-add">
+          <div class="dashboard-card" style="max-width: 800px; margin: 0 auto;">
+            <div class="card-header-row">
+              <div>
+                <h2 class="card-title">Create Knowledge Base Record</h2>
+                <p class="card-subtitle">Structure official institutional information for the student assistant</p>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="staged-info-callout">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <div class="staged-callout-text">
+                  <h4>Phase 1 Design Preview</h4>
+                  <p>This entry form reflects the schema of <code>ncerc.db</code> (<code>category</code>, <code>keywords</code>, <code>answer</code>). The backend database modification endpoints will be wired in Phase 2.</p>
+                </div>
+              </div>
+                
+<form action="{{ url_for('admin_add_knowledge') }}" method="POST">
+  <div class="admin-form-group">
+    <label class="admin-form-label" for="newCategory">
+      Topic Category
+    </label>
+    <input
+      type="text"
+      id="newCategory"
+      name="category"
+      class="admin-form-control"
+      placeholder="e.g. admissions, hostel, library, placement"
+      required
+    >
+    <p class="admin-form-hint">
+      Choose an existing category or define a new institutional topic tag.
+    </p>
+  </div>
+
+  <div class="admin-form-group">
+    <label class="admin-form-label" for="newKeywords">
+      Search Keywords (Comma Separated)
+    </label>
+    <input
+      type="text"
+      id="newKeywords"
+      name="keywords"
+      class="admin-form-control"
+      placeholder="e.g. library, book lending, reading room, working hours"
+      required
+    >
+    <p class="admin-form-hint">
+      Key phrases and terms students commonly use when inquiring about this subject.
+    </p>
+  </div>
+
+  <div class="admin-form-group">
+    <label class="admin-form-label" for="newAnswer">
+      Official Student Response
+    </label>
+    <textarea
+      id="newAnswer"
+      name="answer"
+      class="admin-form-control"
+      rows="5"
+      placeholder="Enter clear, verified, and professional information for NCERC students..."
+      required
+    ></textarea>
+    <p class="admin-form-hint">
+      This exact answer will be provided to students by the AI chatbot.
+    </p>
+  </div>
+
+  <div class="form-actions-row">
+    <button type="submit" class="btn-primary">
+      <span>Save to Knowledge Base</span>
+    </button>
+    <button type="reset" class="btn-secondary">
+      Reset Fields
+    </button>
+  </div>
+</form>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             VIEW 4: IMPORT DATASET
+             ================================================================== -->
+        <section class="tab-pane" id="view-import">
+          <div class="dashboard-card" style="max-width: 800px; margin: 0 auto;">
+            <div class="card-header-row">
+              <div>
+                <h2 class="card-title">Bulk Dataset Import</h2>
+                <p class="card-subtitle">Ingest standardized CSV or JSON question-answer datasets</p>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="staged-info-callout">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <div class="staged-callout-text">
+                  <h4>Phase 1 Design Preview</h4>
+                  <p>Bulk dataset parsing pipelines are staged for Phase 2. Existing database records in <code>ncerc.db</code> are safely guarded from modification.</p>
+                </div>
+              </div>
+
+              <div class="upload-dropzone staged-action-btn" data-feature="Dataset upload">
+                <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--navy-800); margin-bottom: 4px;">Click to Select or Drag & Drop Dataset File</h4>
+                <p style="font-size: 0.8rem; color: var(--slate-500); margin-bottom: 12px;">Supports .csv and .json structured Q&A files</p>
+                <span class="btn-secondary" style="display: inline-block;">Browse Files</span>
+              </div>
+
+              <div style="margin-top: 26px;">
+                <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--slate-700); margin-bottom: 10px;">Expected CSV Column Schema</h4>
+                <div class="table-responsive-box">
+                  <table class="admin-data-table">
+                    <thead>
+                      <tr>
+                        <th>Field Name</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>category</code></td>
+                        <td>String</td>
+                        <td>Yes</td>
+                        <td>Topic classification (e.g. "attendance", "scholarship")</td>
+                      </tr>
+                      <tr>
+                        <td><code>keywords</code></td>
+                        <td>String</td>
+                        <td>Yes</td>
+                        <td>Comma-separated search phrases and variations</td>
+                      </tr>
+                      <tr>
+                        <td><code>answer</code></td>
+                        <td>String</td>
+                        <td>Yes</td>
+                        <td>Complete verified response delivered to student</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             VIEW 5: NOTICE MANAGEMENT
+             ================================================================== -->
+        <section class="tab-pane" id="view-notices">
+          <div class="dashboard-card" style="max-width: 800px; margin: 0 auto;">
+            <div class="card-header-row">
+              <div>
+                <h2 class="card-title">Institutional Notice Intake</h2>
+                <p class="card-subtitle">Upload official circulars to parse updates into chatbot knowledge</p>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="staged-info-callout">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <div class="staged-callout-text">
+                  <h4>Phase 1 Design Preview</h4>
+                  <p>Document ingestion and PDF notice text extraction will be connected in Phase 2 with Gemini OCR/text analysis.</p>
+                </div>
+              </div>
+
+              <div class="upload-dropzone staged-action-btn" data-feature="Notice document upload">
+                <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--navy-800); margin-bottom: 4px;">Upload Official College Circular</h4>
+                <p style="font-size: 0.8rem; color: var(--slate-500); margin-bottom: 12px;">Accepted formats: PDF, DOCX, TXT</p>
+                <span class="btn-secondary" style="display: inline-block;">Select Document</span>
+              </div>
+
+              <div class="empty-state-card" style="margin-top: 24px;">
+                <div class="empty-state-icon">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                </div>
+                <h4 class="empty-state-title">No Unprocessed Circulars</h4>
+                <p class="empty-state-text">There are currently no college notices waiting in the ingestion queue. Upload a circular to begin.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             VIEW 6: AI DRAFT REVIEW
+             ================================================================== -->
+             
+<section class="tab-pane" id="view-ai-drafts">
+    
+<form
+    action="{{ url_for('admin_upload_knowledge_draft') }}"
+    method="POST"
+    enctype="multipart/form-data"
+>
+    <div class="admin-form-group">
+        <label class="admin-form-label" for="file">
+            Upload College Notice or Image
+        </label>
+
+        <input
+            type="file"
+            id="file"
+            name="file"
+            accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"
+            required
+        >
+
+        <p class="admin-form-hint">
+            Supported formats: PDF, JPG, JPEG, PNG. Maximum size: 10 MB.
+        </p>
+    </div>
+
+    <div class="form-actions-row">
+        <button type="submit" class="btn-primary">
+            Upload and Generate AI Draft
+        </button>
+    </div>
+</form>
+
+  <div class="dashboard-card" style="max-width: 800px; margin: 0 auto;">
+    <div class="card-header-row">
+      <div>
+        <h2 class="card-title">Generate Knowledge from College Details</h2>
+        <p class="card-subtitle">
+          Enter official college information to generate a draft for review.
+        </p>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <form
+        action="{{ url_for('admin_generate_knowledge_draft') }}"
+        method="POST"
+      >
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="source_text">
+            College Information
+          </label>
+
+          <textarea
+            id="source_text"
+            name="source_text"
+            class="admin-form-control"
+            rows="8"
+            placeholder="Enter details from an official college notice, faculty list, event announcement, or other college information..."
+            required
+          ></textarea>
+
+          <p class="admin-form-hint">
+            Gemini will prepare a category, search keywords, and answer.
+            Review the generated details before saving them.
+          </p>
+        </div>
+
+        <div class="form-actions-row">
+          <button type="submit" class="btn-primary">
+            Generate AI Draft
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>      
+
+      </div>
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='admin.js') }}"></script>
+</body>
+</html>
